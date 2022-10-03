@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
-export default function Button() {
+export default function Button(props) {
+
+    console.log(props)
+
+
     return (
 
 
         <Menu>
             <CaixaBotao>
-                <Botao>
+                <Botao onClick={props.naoLembrei}>
                     Não lembrei
                 </Botao>
                 <Botao1>

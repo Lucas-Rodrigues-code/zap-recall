@@ -15,21 +15,32 @@ const perguntasInfo = [
 
 export default function Card() {
     const [perguntas, setPerguntas] = useState(perguntasInfo)
-    
-   
+
+
 
     function cliqueCard(p) {
-        const novasPerguntas =[...perguntas]
+        const novasPerguntas = [...perguntas]
         novasPerguntas[p.id].condicao = "aberta"
-        console.log(novasPerguntas)
-        
-         setPerguntas(novasPerguntas)
-        
-  
-        
+
+        setPerguntas(novasPerguntas)
+
+
+
     }
 
- 
+    function MudarTela(p) {
+        
+        const novasPerguntas = [...perguntas]
+        novasPerguntas[p.id].condicao = "aberta1"
+
+        setPerguntas(novasPerguntas)
+
+    }
+
+    function naoLembrei(){
+        alert("naoLembrei")
+    }
+
 
 
 
@@ -42,22 +53,29 @@ export default function Card() {
                     <>
                         {p.condicao === "fechado" ?
                             (<Cards key={p.id} >
-                                <h1>Pergunta {p.id}</h1><svg onClick={()=>cliqueCard(p)} xmlns="http://www.w3.org/2000/svg"
+                                <h1>Pergunta {p.id}</h1><svg onClick={() => cliqueCard(p)} xmlns="http://www.w3.org/2000/svg"
                                     className="ionicon" viewBox="0 0 512 512"><title>Play</title><path
                                         d="M112 111v290c0 17.44 17 28.52 31 20.16l247.9-148.37c12.12-7.25 12.12-26.33 0-33.58L143 90.84c-14-8.36-31 2.72-31 20.16z"
                                         fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" /></svg>
                             </Cards>)
-                            :    (
+                            : (
                                 <CardAberto key={p.id}>
                                     <h1>{p.pergunta}</h1>
-                                    <img src={setinha} alt="setinha" />
+                                    <img src={setinha} alt="setinha" onClick={() => MudarTela(p)} />
                                 </CardAberto>
+
+
                             )
-                    
-                
-            
-                
-                }
+
+
+
+
+                        }
+                        {p.condicao === "aberta1" && (
+                            <CardRes>
+                                <h1>{p.resposta}</h1>
+                            </CardRes>
+                        )}
                     </>
                 )
 
@@ -86,6 +104,9 @@ const Cards = styled.div`
     cursor: pointer; 
     font-family: 'Recursive', cursive;
 
+    /* color: green;
+    text-decoration: line-through; */
+
 
     svg{
         width: 20px;
@@ -104,7 +125,7 @@ const CardAberto = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #FFFFD5;
-    cursor: default;
+   
     padding: 20px 10px;
 
     font-family: 'Recursive', sans-serif;
@@ -117,12 +138,34 @@ const CardAberto = styled.div`
     img{
         width: 30px;
         height: 20px;
-        margin-top:100px;
-        margin-left:260px
+        
+        padding-top:90px;
+        margin-left:260px 
+        
+        
     }
 
 
 
 `
+
+const CardRes = styled.div`
+    width: 300px;
+    height: 130px;
+    border-radius:5px;
+    margin-bottom:10px;
+
+    font-family: 'Recursive', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    background-color: #FFFFD5;
+    h1{
+        padding-top:10px;
+        padding-left:10px
+    }
+
+`
+
+
 
 
