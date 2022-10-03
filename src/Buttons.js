@@ -5,6 +5,7 @@ export default function Button({perguntas,ultimaPerguntaClicada,setPerguntas,con
 
     function respondeQuiz(valor) {
 
+        if(ultimaPerguntaClicada.condicao === "resultado")return
         if(ultimaPerguntaClicada === null)return
         
         const novasPerguntas = [...perguntas]

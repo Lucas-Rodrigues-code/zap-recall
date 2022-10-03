@@ -1,12 +1,13 @@
-import { BsCheckCircleFill,BsPlay } from 'react-icons/bs';
+import { BsCheckCircleFill, BsPlay, BsQuestion } from 'react-icons/bs';
 import { VscError } from 'react-icons/vsc';
+
 
 import styled from 'styled-components';
 
 import setinha from "./img/setinha.png"
 
 
-export default function Card({ perguntas, setPerguntas,setUltimaPerguntaClicada,setConRespostas,contRespostas }) {
+export default function Card({ perguntas, setPerguntas, setUltimaPerguntaClicada, setConRespostas, contRespostas }) {
 
     function cliqueCard(p) {
         const novasPerguntas = [...perguntas]
@@ -18,42 +19,55 @@ export default function Card({ perguntas, setPerguntas,setUltimaPerguntaClicada,
 
     function MudarTela(p) {
         setUltimaPerguntaClicada(p)
-             
+
         const novasPerguntas = [...perguntas]
         novasPerguntas[p.id].condicao = "aberta1"
 
         setPerguntas(novasPerguntas)
-        
+
+    }
+
+    function RenderizaIconeResultado({p}) {
+        return (
+            <>
+                
+               { (p.condicao === "resultado" && p.cor === "#FF3030" )? <VscError /> :
+
+                (p.condicao === "resultado" && p.cor === "#FF922E" ) ? <BsQuestion/> :
+
+                (p.condicao === "resultado" && p.cor === "#2FBE34" )? <BsCheckCircleFill /> :<></>}
+            </>
+        )
     }
 
     return (
         <>
             {perguntas.map((p) =>
-                (
+            (
                 <>
-                    {p.condicao === "fechado" && 
+                    {p.condicao === "fechado" &&
                         <Cards cor={p.cor} key={p.id} >
-                            <h1>Pergunta {p.id + 1}</h1><BsPlay onClick={() => cliqueCard(p)} /> 
+                            <h1>Pergunta {p.id + 1}</h1><BsPlay onClick={() => cliqueCard(p)} />
 
                         </Cards>}
 
-                    {p.condicao === "aberta" && 
+                    {p.condicao === "aberta" &&
                         <CardAberto key={p.id}>
                             <h1>{p.pergunta}</h1>
                             <img src={setinha} alt="setinha" onClick={() => MudarTela(p)} />
                         </CardAberto>}
 
-                    {p.condicao === "aberta1" && 
+                    {p.condicao === "aberta1" &&
                         <CardRes key={p.id}>
                             <h1>{p.resposta}</h1>
                         </CardRes>
-                    } 
-                    {p.condicao === "resultado" && 
-                        <Cards cor={p.cor} key={p.id} >
-                            <h1>Pergunta {p.id}</h1>{p.condicao === "resultado" ? <VscError/> : <BsCheckCircleFill/>}
+                    }
+                    {p.condicao === "resultado" &&
+                        <Cards condicao={p.condicao} cor={p.cor} key={p.id} >
+                            <h1>Pergunta {p.id}</h1> <RenderizaIconeResultado p={p}/>
                         </Cards>}
                 </>
-                )
+            )
 
 
             )}
@@ -74,8 +88,8 @@ const Cards = styled.div`
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    color:${({cor})=> cor};
-    
+    color:${({ cor }) => cor};
+    text-decoration: ${({condicao})=> condicao === "resultado" ? "line-through":"none"};
     border-radius: 5px;
     margin: 10px 0px;
     padding: 10px 10px; 
