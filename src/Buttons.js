@@ -1,26 +1,53 @@
 import styled from 'styled-components';
 
-export default function Button(props) {
+export default function Button({perguntas,ultimaPerguntaClicada,setPerguntas,contRespostas,setConRespostas}) {
+   
 
-    console.log(props)
+    function respondeQuiz(valor) {
 
+        if(ultimaPerguntaClicada === null)return
+        
+
+        const novasPerguntas = [...perguntas]
+        novasPerguntas[ultimaPerguntaClicada.id].condicao = "resultado"
+        if(valor === "nãoLembrei"){        
+            novasPerguntas[ultimaPerguntaClicada.id].cor = "#FF3030"
+            novasPerguntas[ultimaPerguntaClicada.id].condicao = "resultado"
+            
+        }
+        if(valor === "QuaseNãoLembrei"){        
+            novasPerguntas[ultimaPerguntaClicada.id].cor = "#FF922E"
+        }
+        if(valor === "Zap!"){        
+            novasPerguntas[ultimaPerguntaClicada.id].cor = "#2FBE34"
+            novasPerguntas[ultimaPerguntaClicada.id].condicao = "resultado"
+        }
+        setPerguntas(novasPerguntas)
+
+        const cont = contRespostas + 1
+        setConRespostas(cont)
+        
+
+       
+    }
+   
 
     return (
 
 
         <Menu>
             <CaixaBotao>
-                <Botao onClick={props.naoLembrei}>
+                <Botao onClick={()=> respondeQuiz("nãoLembrei")}>
                     Não lembrei
                 </Botao>
-                <Botao1>
+                <Botao1 onClick={()=> respondeQuiz("QuaseNãoLembrei")}>
                     Quase não lembrei
                 </Botao1>
-                <Botao2>
+                <Botao2 onClick={()=> respondeQuiz("Zap!")}>
                     Zap!
                 </Botao2>
             </CaixaBotao>
-            <h1>0/4 CONCLUÍDOS</h1>
+            <h1>{contRespostas}/{perguntas.length} CONCLUÍDOS</h1>
         </Menu>
 
 
