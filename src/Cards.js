@@ -1,13 +1,12 @@
-
 import { BsCheckCircleFill,BsPlay } from 'react-icons/bs';
 import { VscError } from 'react-icons/vsc';
+
 import styled from 'styled-components';
+
 import setinha from "./img/setinha.png"
 
 
 export default function Card({ perguntas, setPerguntas,setUltimaPerguntaClicada,setConRespostas,contRespostas }) {
-
-
 
     function cliqueCard(p) {
         const novasPerguntas = [...perguntas]
@@ -15,38 +14,26 @@ export default function Card({ perguntas, setPerguntas,setUltimaPerguntaClicada,
 
         setPerguntas(novasPerguntas)
 
-
-
     }
 
     function MudarTela(p) {
         setUltimaPerguntaClicada(p)
-        
-        
-
+             
         const novasPerguntas = [...perguntas]
         novasPerguntas[p.id].condicao = "aberta1"
 
         setPerguntas(novasPerguntas)
         
-        
-
     }
 
-
-
-
-
     return (
-
-
         <>
             {perguntas.map((p) =>
                 (
                 <>
                     {p.condicao === "fechado" && 
                         <Cards cor={p.cor} key={p.id} >
-                            <h1>Pergunta {p.id}</h1><BsPlay onClick={() => cliqueCard(p)} /> 
+                            <h1>Pergunta {p.id + 1}</h1><BsPlay onClick={() => cliqueCard(p)} /> 
 
                         </Cards>}
 
@@ -88,16 +75,13 @@ const Cards = styled.div`
     align-items: center;
     background-color: white;
     color:${({cor})=> cor};
-    //text-decoration: line-through; 
+    
     border-radius: 5px;
     margin: 10px 0px;
     padding: 10px 10px; 
     cursor: pointer; 
     font-family: 'Recursive', cursive;
     
-
-   
-
 
     svg{
         width: 20px;

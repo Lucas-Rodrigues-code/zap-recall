@@ -7,12 +7,13 @@ export default function Button({perguntas,ultimaPerguntaClicada,setPerguntas,con
 
         if(ultimaPerguntaClicada === null)return
         
-
         const novasPerguntas = [...perguntas]
+
         novasPerguntas[ultimaPerguntaClicada.id].condicao = "resultado"
+        
         if(valor === "nãoLembrei"){        
             novasPerguntas[ultimaPerguntaClicada.id].cor = "#FF3030"
-            novasPerguntas[ultimaPerguntaClicada.id].condicao = "resultado"
+            
             
         }
         if(valor === "QuaseNãoLembrei"){        
@@ -20,7 +21,7 @@ export default function Button({perguntas,ultimaPerguntaClicada,setPerguntas,con
         }
         if(valor === "Zap!"){        
             novasPerguntas[ultimaPerguntaClicada.id].cor = "#2FBE34"
-            novasPerguntas[ultimaPerguntaClicada.id].condicao = "resultado"
+            
         }
         setPerguntas(novasPerguntas)
 
